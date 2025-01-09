@@ -1,0 +1,92 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
+---
+# renovate: datasource=docker depName=ghcr.io/siderolabs/installer
+talosVersion: v1.9.1
+# renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
+kubernetesVersion: v1.32.0
+
+clusterName: "home-kube"
+endpoint: https://10.0.38.2:6443
+
+clusterPodNets:
+  - "10.69.0.0/16"
+clusterSvcNets:
+  - "10.96.0.0/16"
+
+additionalApiServerCertSans: &sans
+  - "10.0.38.2"
+  - "home-kube.38"
+  - "127.0.0.1"
+additionalMachineCertSans: *sans
+
+# Disable built-in Flannel to use Cilium
+cniConfig:
+  name: none
+
+nodes:
+  - hostname: "talos-mf-01"
+    ipAddress: "10.0.38.226"
+    installDisk: "/dev/nvme0n1"
+    talosImageURL: factory.talos.dev/installer/0aaef89862ae088d5e75bfac19b047b7b4ef017e80499b7c8231d989ab943378
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "58:47:ca:79:a4:85"
+        dhcp: false
+        addresses:
+          - "10.0.38.226/24"
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "10.0.38.1"
+        mtu: 1500
+        vip:
+          ip: "10.0.38.2"
+  - hostname: "talos-mf-02"
+    ipAddress: "10.0.38.183"
+    installDisk: "/dev/nvme0n1"
+    talosImageURL: factory.talos.dev/installer/0aaef89862ae088d5e75bfac19b047b7b4ef017e80499b7c8231d989ab943378
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "58:47:ca:79:a0:e2"
+        dhcp: false
+        addresses:
+          - "10.0.38.183/24"
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "10.0.38.1"
+        mtu: 1500
+        vip:
+          ip: "10.0.38.2"
+  - hostname: "talos-mf-03"
+    ipAddress: "10.0.38.179"
+    installDisk: "/dev/nvme0n1"
+    talosImageURL: factory.talos.dev/installer/0aaef89862ae088d5e75bfac19b047b7b4ef017e80499b7c8231d989ab943378
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "58:47:ca:79:a4:56"
+        dhcp: false
+        addresses:
+          - "10.0.38.179/24"
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "10.0.38.1"
+        mtu: 1500
+        vip:
+          ip: "10.0.38.2"
+
+# Global patches
+patches:
+  - "@./patches/global/machine-files.yaml"
+  - "@./patches/global/machine-kubelet.yaml"
+  - "@./patches/global/machine-network.yaml"
+  - "@./patches/global/machine-sysctls.yaml"
+  - "@./patches/global/machine-time.yaml"
+
+# Controller patches
+controlPlane:
+  patches:
+    - "@./patches/controller/admission-controller-patch.yaml"
+    - "@./patches/controller/cluster.yaml"
+
