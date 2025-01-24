@@ -50,6 +50,10 @@ metadata:
     advertise: bgp
 spec:
   advertisements:
+    - advertisementType: "PodCIDR"
+      attributes:
+        communities:
+          standard: [ "65000:99" ]
     - advertisementType: "Service"
       service:
         addresses:
@@ -58,4 +62,7 @@ spec:
           - LoadBalancerIP
       selector:
         matchExpressions:
-         - {key: somekey, operator: NotIn, values: ['never-used-value']} # Match everything
+          - {key: somekey, operator: NotIn, values: ['never-used-value']} # Match everything
+      attributes:
+        communities:
+          standard: [ "65000:100" ]
