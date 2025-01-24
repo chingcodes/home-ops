@@ -1,4 +1,13 @@
 ---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: l3-pool
+spec:
+  allowFirstLastIPs: "No"
+  blocks:
+    - cidr: "10.42.0.0/16"
+---
 # https://docs.cilium.io/en/latest/network/bgp-control-plane-v2
 apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPClusterConfig
@@ -27,13 +36,19 @@ spec:
     peerPort: 179
 ---
 apiVersion: cilium.io/v2alpha1
-kind: CiliumLoadBalancerIPPool
+kind: CiliumBGPPeerConfig
 metadata:
-  name: l3-pool
+  name: cilium-peer
 spec:
-  allowFirstLastIPs: "Yes"
-  blocks:
-    - cidr: "10.42.0.0/16"
+  gracefulRestart:
+    enabled: true
+    restartTimeSeconds: 15
+  families:
+    - afi: ipv4
+      safi: unicast
+      advertisements:
+        matchLabels:
+          advertise: "bgp"
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPAdvertisement
@@ -46,6 +61,8 @@ spec:
     - advertisementType: "Service"
       service:
         addresses:
+          - ClusterIP
+          - ExternalIP
           - LoadBalancerIP
       selector:
         matchExpressions:
