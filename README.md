@@ -36,7 +36,7 @@ There are **5 stages** outlined below for completing this project, make sure you
 
 2. This will eventually lead you to download a Talos Linux ISO (or for SBCs a RAW) image. Make sure to note the **schematic ID** you will need this later on.
 
-3. Flash the Talos ISO or RAW image to a USB drive and boot from it on your nodes.
+3. Flash the Talos ISO or RAW image to a USB drive and boot [from](from) it on your nodes.
 
 4. Verify with `nmap` that your nodes are available on the network. (Replace `192.168.1.0/24` with the network your nodes are on.)
 
