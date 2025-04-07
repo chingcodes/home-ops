@@ -29,10 +29,12 @@
         k9s
         talosctl
         kubernetes-helm
+        helmfile
         kustomize
         kubeconform
         cloudflared
         yewtube
+        cilium-cli
 
         # Add the telhelper package from the talhelper flake.
         talhelper.packages.${system}.default
@@ -44,6 +46,9 @@
         export PYTHONPATH="$PIP_PREFIX/${pkgs.python313.sitePackages}:$PYTHONPATH"
         export PATH="$PIP_PREFIX/bin:$PATH"
         unset SOURCE_DATE_EPOCH
+
+        export KUBECONFIG=$(pwd)/kubeconfig
+        export TALOSCONFIG=$(pwd)/talos/clusterconfig/talosconfig
       '';
     };
   };
