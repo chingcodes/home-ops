@@ -53,11 +53,6 @@ spec:
                 memory: 2Gi
               limits:
                 memory: 4Gi
-            securityContext:
-              runAsNonRoot: true
-              runAsUser: 65534
-              runAsGroup: 65534
-              seccompProfile: { type: RuntimeDefault }
     defaultPodOptions: {}
     service:
       app:
