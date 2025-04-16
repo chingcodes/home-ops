@@ -73,9 +73,9 @@ spec:
                 service:
                   identifier: app
                   port: http
-    persistence:
-      config:
-        enabled: true
-        #existingClaim: *app
-        globalMounts:
-          - path: /app/backend/data
+    #persistence:
+    #  config:
+    #    enabled: true
+    #    #existingClaim: *app
+    #    globalMounts:
+    #      - path: /app/backend/data
