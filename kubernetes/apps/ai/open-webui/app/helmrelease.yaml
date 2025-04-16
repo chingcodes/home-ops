@@ -47,13 +47,13 @@ spec:
         controller: open-webui
         ports:
           http:
-            port: &port 3000
+            port: 8080
     ingress:
       app:
         enabled: true
         className: internal
         annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
         hosts:
           - host: "openui.ai.${SECRET_DOMAIN}"
             paths:
