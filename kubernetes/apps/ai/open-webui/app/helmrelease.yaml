@@ -38,14 +38,6 @@ spec:
               repository: ghcr.io/open-webui/open-webui
               tag: 0.5.20
             env: []
-              #- name: OLLAMA_BASE_URL
-              #  value: http://ollama.rafaribe.com:11434
-              #- name: ENABLE_RAG_WEB_SEARCH
-              #  value: true
-              #- name: RAG_WEB_SEARCH_ENGINE
-              #  value: searxng
-              #- name: SEARXNG_QUERY_URL
-              #  value: http://searxng.services.svc.cluster.local:8080/search?q=<query>
             envFrom: *envFrom
             resources:
               requests:
@@ -53,7 +45,7 @@ spec:
                 memory: 2Gi
               limits:
                 memory: 4Gi
-    defaultPodOptions: {}
+    #defaultPodOptions: {}
     service:
       app:
         controller: open-webui
@@ -73,9 +65,9 @@ spec:
                 service:
                   identifier: app
                   port: http
-    #persistence:
-    #  config:
-    #    enabled: true
-    #    #existingClaim: *app
-    #    globalMounts:
-    #      - path: /app/backend/data
+    persistence:
+      config:
+        enabled: true
+        #existingClaim: *app
+        globalMounts:
+          - path: /app/backend/data
