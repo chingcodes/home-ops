@@ -24,13 +24,17 @@ spec:
       open-webui:
         annotations:
           reloader.stakater.com/auto: "true"
+        #initContainers:
+        #  init-db:
+        #    image:
+        #      repository: ghcr.io/rafaribe/postgres-init
+        #      tag: 16
         containers:
           app:
             image:
               repository: ghcr.io/open-webui/open-webui
               tag: 0.5.20
             env: []
-            envFrom: *envFrom
             resources:
               requests:
                 cpu: 500m
