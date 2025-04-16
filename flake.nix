@@ -3,7 +3,7 @@
 
   inputs = {
     # Use the desired channel for nixpkgs; here we use unstable as an example.
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     # Add the talhelper flake as an input.
     talhelper.url = "github:budimanjojo/talhelper";
   };
