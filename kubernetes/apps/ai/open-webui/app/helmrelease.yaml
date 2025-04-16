@@ -61,9 +61,9 @@ spec:
                 service:
                   identifier: app
                   port: http
-    persistence:
-      config:
-        enabled: true
-        existingClaim: open-webui-backend
-        globalMounts:
-          - path: /app/backend/data
+    #persistence:
+    #  config:
+    #    enabled: true
+    #    existingClaim: open-webui-backend
+    #    globalMounts:
+    #      - path: /app/backend/data
