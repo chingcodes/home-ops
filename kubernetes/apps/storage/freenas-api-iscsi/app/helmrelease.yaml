@@ -1,0 +1,24 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: freenas-iscsi-csi
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: democratic-csi
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  valuesFrom:
+    - kind: ConfigMap
+      name: freenas-api-iscsi-values
+    - kind: Secret
+      name: freenas-api-iscsi-secret
