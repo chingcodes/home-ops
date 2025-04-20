@@ -1,8 +1,10 @@
 ---
-apiVersion: v1
-kind: Namespace
+apiVersion: builtin
+kind: LabelTransformer
 metadata:
-  name: storage-system
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-    pod-security.kubernetes.io/enforce: privileged
+  name: add-pod-security-label
+labels:
+  pod-security.kubernetes.io/enforce: privileged
+fieldSpecs:
+  - kind: Namespace
+    path: metadata/labels
