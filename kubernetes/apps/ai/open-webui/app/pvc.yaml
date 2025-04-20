@@ -4,6 +4,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: open-webui-backend
 spec:
+  storageClassName: "freenas-api-iscsi-csi"
   accessModes: ["ReadWriteOnce"]
   resources:
     requests:
