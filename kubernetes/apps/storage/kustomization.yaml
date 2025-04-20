@@ -6,4 +6,5 @@ namespace: storage
 components:
   - ../../components/common
 resources:
+  - ./namespace.yaml
   - ./freenas-api-iscsi/ks.yaml
