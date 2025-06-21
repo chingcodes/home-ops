@@ -1,0 +1,32 @@
+{
+  "docs": [
+    {
+      "title": "Documentation",
+      "url": "https://github.com/chingcodes/home-ops/blob/main/README.md"
+    }
+  ],
+  "commands": [
+    {
+      "name": "Setup Environment",
+      "command": "mise install",
+      "type": "setup"
+    },
+    {
+      "name": "List Tasks",
+      "command": "task --list",
+      "type": "run"
+    }
+  ],
+  "linters": [
+    {
+      "name": "shellcheck",
+      "command": "shellcheck ${file}",
+      "glob": "**/*.sh"
+    },
+    {
+      "name": "kubeconform",
+      "command": "kubeconform ${file}",
+      "glob": "kubernetes/**/*.yaml"
+    }
+  ]
+}
