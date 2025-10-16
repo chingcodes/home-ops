@@ -1,4 +1,6 @@
 machine:
+  nodeLabels:
+    openebs.io/localhost_engine: "true"
   kubelet:
     extraMounts:
       - destination: /var/openebs/local

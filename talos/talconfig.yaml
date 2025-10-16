@@ -38,6 +38,8 @@ nodes:
         mtu: 1500
         vip:
           ip: "10.0.38.5"
+    patches:
+      - "@./patches/openebs/local-hostpath.yaml"
   - hostname: "talos-mf-02"
     ipAddress: "10.0.38.22"
     installDisk: "/dev/nvme0n1"
@@ -57,6 +59,8 @@ nodes:
         mtu: 1500
         vip:
           ip: "10.0.38.5"
+    patches:
+      - "@./patches/openebs/local-hostpath.yaml"
   - hostname: "talos-mf-03"
     ipAddress: "10.0.38.23"
     installDisk: "/dev/nvme0n1"
@@ -76,6 +80,8 @@ nodes:
         mtu: 1500
         vip:
           ip: "10.0.38.5"
+    patches:
+      - "@./patches/openebs/local-hostpath.yaml"
 
 # Global patches
 patches:
@@ -91,6 +97,4 @@ controlPlane:
     - "@./patches/controller/admission-controller-patch.yaml"
     - "@./patches/controller/cluster.yaml"
     - "@./patches/openebs/control-plane-patch.yaml"
-    - "@./patches/openebs/worker-patch.yaml"
-    - "@./patches/openebs/local-hostpath-mount-patch.yaml"
 

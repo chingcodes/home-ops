@@ -33,3 +33,16 @@ spec:
         isDefaultClass: true
         name: openebs-hostpath
         basePath: /var/openebs/local
+        nodeSelector:
+          openebs.io/localhost_engine: "true"
+    engines:
+      local:
+        lvm:
+          enabled: false
+        zfs:
+          enabled: false
+        rawfile:
+          enabled: false
+      replicated:
+        mayastor:
+          enabled: false
