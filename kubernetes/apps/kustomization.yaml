@@ -7,5 +7,6 @@ resources:
   - ./default
   - ./flux-system
   - ./kube-system
+  - ./monitoring
   - ./network
   - ./storage
