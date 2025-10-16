@@ -90,4 +90,7 @@ controlPlane:
   patches:
     - "@./patches/controller/admission-controller-patch.yaml"
     - "@./patches/controller/cluster.yaml"
+    - "@./patches/openebs/control-plane-patch.yaml"
+    - "@./patches/openebs/worker-patch.yaml"
+    - "@./patches/openebs/local-hostpath-mount-patch.yaml"
 

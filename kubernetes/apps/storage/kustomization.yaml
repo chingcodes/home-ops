@@ -6,6 +6,6 @@ namespace: storage
 components:
   - ../../components/common
 resources:
-  - ./freenas-api-iscsi/ks.yaml
+  - ./openebs/ks.yaml
 transformers:
   - ./namespace.yaml
