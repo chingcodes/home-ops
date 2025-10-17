@@ -55,15 +55,16 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
         hosts:
-          - host: "openui.ai.${SECRET_DOMAIN}"
+          - host: "open-webui.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-    ersistence:
-     config:
-       enabled: true
-       existingClaim: open-webui-backend
-       globalMounts:
-         - path: /app/backend/data
+    persistence:
+      config:
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 5Gi
+        globalMounts:
+          - path: /app/backend/data
