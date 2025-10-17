@@ -5,6 +5,7 @@ metadata:
   namespace: monitoring
 spec:
   interval: 5m
+  createNamespace: true
   chart:
     spec:
       chart: kube-prometheus-stack
@@ -43,39 +44,78 @@ spec:
     # prometheusOperator:
     #   enabled: true
 
+    #defaultRules:
+    #create: true
+    #rules:
+    #  alertmanager: true
+    #  etcd: true
+    #  configReloaders: true
+    #  general: true
+    #  k8sContainerCpuUsageSecondsTotal: true
+    #  k8sContainerMemoryCache: true
+    #  k8sContainerMemoryRss: true
+    #  k8sContainerMemorySwap: true
+    #  k8sContainerResource: true
+    #  k8sContainerMemoryWorkingSetBytes: true
+    #  k8sPodOwner: true
+    #  kubeApiserverAvailability: true
+    #  kubeApiserverBurnrate: true
+    #  kubeApiserverHistogram: true
+    #  kubeApiserverSlos: true
+    #  kubeControllerManager: true
+    #  kubelet: true
+    #  kubeProxy: true
+    #  kubePrometheusGeneral: true
+    #  kubePrometheusNodeRecording: true
+    #  kubernetesApps: true
+    #  kubernetesResources: true
+    #  kubernetesStorage: true
+    #  kubernetesSystem: true
+    #  kubeSchedulerAlerting: true
+    #  kubeSchedulerRecording: true
+    #  kubeStateMetrics: true
+    #  network: true
+    #  node: true
+    #  nodeExporterAlerting: true
+    #  nodeExporterRecording: true
+    #  prometheus: true
+    #  prometheusOperator: true
+    #  windows: true
+
     alertmanager:
       ingress:
         enabled: true
         ingressClassName: internal
         hosts:
-          - "alertmanager.${SECRET_DOMAIN}"
+          - "alertmanager.SECRET_DOMAIN}"
         paths:
           - /
         pathType: Prefix
         tls:
           - hosts:
-              - "alertmanager.${SECRET_DOMAIN}"
+              - "alertmanager.SECRET_DOMAIN}"
     grafana:
       ingress:
         enabled: true
         ingressClassName: internal
         hosts:
-          - "grafana.${SECRET_DOMAIN}"
+          - "grafana.SECRET_DOMAIN}"
         paths:
           - /
         pathType: Prefix
         tls:
           - hosts:
-              - "grafana.${SECRET_DOMAIN}"
+              - "grafana.SECRET_DOMAIN}"
     prometheus:
+      interval: 60s
       ingress:
         enabled: true
         ingressClassName: internal
         hosts:
-          - "prometheus.${SECRET_DOMAIN}"
+          - "prometheus.SECRET_DOMAIN}"
         paths:
           - /
         pathType: Prefix
         tls:
           - hosts:
-              - "prometheus.${SECRET_DOMAIN}"
+              - "prometheus.SECRET_DOMAIN}"
