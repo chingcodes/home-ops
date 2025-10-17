@@ -32,9 +32,9 @@ spec:
         enabled: true
         isDefaultClass: true
         name: openebs-hostpath
-        basePath: /var/openebs/local
+        basePath: /var/mnt/openebs-localhost
         nodeSelector:
-          openebs.io/localhost_engine: "true"
+          openebs.io/local-hostpath: "true"
     engines:
       local:
         lvm:

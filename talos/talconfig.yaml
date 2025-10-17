@@ -48,6 +48,8 @@ nodes:
           ip: "10.0.38.5"
     patches:
       - "@./patches/openebs/local-hostpath.yaml"
+    extraManifests:
+      - "@./manifests/miniforums-node.yaml"
   - hostname: "talos-mf-02"
     ipAddress: "10.0.38.22"
     installDisk: "/dev/nvme0n1"
@@ -77,6 +79,8 @@ nodes:
           ip: "10.0.38.5"
     patches:
       - "@./patches/openebs/local-hostpath.yaml"
+    extraManifests:
+      - "@./manifests/miniforums-node.yaml"
   - hostname: "talos-mf-03"
     ipAddress: "10.0.38.23"
     installDisk: "/dev/nvme0n1"
@@ -106,6 +110,8 @@ nodes:
           ip: "10.0.38.5"
     patches:
       - "@./patches/openebs/local-hostpath.yaml"
+    extraManifests:
+      - "@./manifests/miniforums-node.yaml"
 
 # Global patches
 patches:
@@ -121,4 +127,3 @@ controlPlane:
     - "@./patches/controller/admission-controller-patch.yaml"
     - "@./patches/controller/cluster.yaml"
     - "@./patches/openebs/control-plane-patch.yaml"
-

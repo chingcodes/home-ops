@@ -1,0 +1,19 @@
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+provisioning:
+  diskSelector:
+    match: disk.dev_path == "/dev/nvme0n1"
+  maxSize: 500GB
+  grow: false
+---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: openebs-localhost
+provisioning:
+  diskSelector:
+    match: disk.dev_path == "/dev/nvme0n1"
+  minSize: 200GB
+  grow: true # Allow to fill rest of disk
+filesystem:
+  type: xfs

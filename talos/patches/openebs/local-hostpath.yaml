@@ -1,12 +1,3 @@
 machine:
   nodeLabels:
-    openebs.io/localhost_engine: "true"
-  kubelet:
-    extraMounts:
-      - destination: /var/openebs/local
-        type: bind
-        source: /var/openebs/local
-        options:
-          - rbind
-          - rshared
-          - rw
+    openebs.io/local-hostpath: "true"
