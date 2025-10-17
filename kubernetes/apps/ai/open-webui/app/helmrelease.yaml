@@ -33,14 +33,14 @@ spec:
           app:
             image:
               repository: ghcr.io/open-webui/open-webui
-              tag: v0.6.15
+              tag: v0.6.34
             env: []
-            resources:
-              requests:
-                cpu: 500m
-                memory: 2Gi
-              limits:
-                memory: 4Gi
+            #resources:
+            #  requests:
+            #    cpu: 500m
+            #    memory: 2Gi
+            #  limits:
+            #    memory: 4Gi
     #defaultPodOptions: {}
     service:
       app:
@@ -55,15 +55,16 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
         hosts:
-          - host: "openui.ai.${SECRET_DOMAIN}"
+          - host: "open-webui.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-    ersistence:
-     config:
-       enabled: true
-       existingClaim: open-webui-backend
-       globalMounts:
-         - path: /app/backend/data
+    persistence:
+      config:
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 5Gi
+        globalMounts:
+          - path: /app/backend/data
