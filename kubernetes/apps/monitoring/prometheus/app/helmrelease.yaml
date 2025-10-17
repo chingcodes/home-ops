@@ -43,6 +43,43 @@ spec:
     # prometheusOperator:
     #   enabled: true
 
+    alertmanager:
+      ingress:
+        enabled: true
+        ingressClassName: internal
+        hosts:
+          - "alertmanager.${SECRET_DOMAIN}"
+        paths:
+          - /
+        pathType: Prefix
+        tls:
+          - hosts:
+              - "alertmanager.${SECRET_DOMAIN}"
+    grafana:
+      ingress:
+        enabled: true
+        ingressClassName: internal
+        hosts:
+          - "grafana.${SECRET_DOMAIN}"
+        paths:
+          - /
+        pathType: Prefix
+        tls:
+          - hosts:
+              - "grafana.${SECRET_DOMAIN}"
+    prometheus:
+      ingress:
+        enabled: true
+        ingressClassName: internal
+        hosts:
+          - "prometheus.${SECRET_DOMAIN}"
+        paths:
+          - /
+        pathType: Prefix
+        tls:
+          - hosts:
+              - "prometheus.${SECRET_DOMAIN}"
+
     # Below are some examples of how to set resource limits for various components.
     # Adjust these values based on your cluster's capacity and monitoring needs.
     alertmanager:

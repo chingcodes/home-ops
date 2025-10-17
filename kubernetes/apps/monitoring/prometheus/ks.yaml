@@ -5,12 +5,13 @@ metadata:
   name: prometheus-app
   namespace: flux-system
 spec:
-  interval: 10m
+  interval: 1h
   path: ./kubernetes/apps/monitoring/prometheus/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
+    namespace: flux-system
   decryption:
     provider: sops
     secretRef:
@@ -22,8 +23,12 @@ spec:
         name: cluster-settings
       - kind: Secret
         name: cluster-secrets
+  dependsOn:
+    - name: reloader
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HelmRelease
       name: prometheus
       namespace: monitoring
+  timeout: 5m
+  wait: false
