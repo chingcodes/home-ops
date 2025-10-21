@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: openebs
         namespace: flux-system
-  maxHistory: 2
+  maxHistory: 4
   install:
     createNamespace: true
     remediation:
@@ -31,21 +31,11 @@ spec:
         volumeSnapshots:
           enabled: false
           keep: false
-    localpv-provisioner:
-      enabled: true
-      hostpathClass:
-        enabled: true
-        isDefaultClass: true
-        name: openebs-hostpath
-        basePath: /var/mnt/openebs-localhost
-        nodeSelector:
-          openebs.io/local-hostpath: "true"
-        xfsQuota:
-          enabled: true
-      analytics:
-        enabled: false
+
     engines:
       local:
+        hostpath:
+          enabled: true
         lvm:
           enabled: false
         zfs:
@@ -55,6 +45,19 @@ spec:
       replicated:
         mayastor:
           enabled: false
+
+    localpv-provisioner:
+      enabled: true
+      hostpathClass:
+        enabled: true
+        isDefaultClass: true
+        name: openebs-hostpath
+        basePath: /var/mnt/openebs-localhost
+        nodeSelector:
+          openebs.io/local-hostpath: "true"
+      analytics:
+        enabled: false
+
     loki:
       enabled: false
     minio:
