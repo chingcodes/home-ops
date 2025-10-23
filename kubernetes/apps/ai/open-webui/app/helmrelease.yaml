@@ -34,7 +34,19 @@ spec:
             image:
               repository: ghcr.io/open-webui/open-webui
               tag: v0.6.34
-            env: []
+            env:
+              WEBUI_URL: "https://openwebui.${SECRET_DOMAIN}"
+              ENABLE_SIGNUP: False
+              ENABLE_LOGIN_FORM: False
+              ENABLE_OAUTH_SIGNUP: True
+              OAUTH_MERGE_ACCOUNTS_BY_EMAIL: True
+              OAUTH_PROVIDER_NAME: Authentik
+              OPENID_PROVIDER_URL: "https://auth.${SECRET_DOMAIN}/application/o/openwebui/.well-known/openid-configuration"
+              OAUTH_SCOPES: "openid email profile"
+              OPENID_REDIRECT_URI: "https://openwebui.${SECRET_DOMAIN}/oauth/oidc/callback"
+            envFrom:
+              - secretRef:
+                  name: open-webui-env-sops
             #resources:
             #  requests:
             #    cpu: 500m
@@ -55,7 +67,7 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
         hosts:
-          - host: "open-webui.${SECRET_DOMAIN}"
+          - host: "openwebui.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
