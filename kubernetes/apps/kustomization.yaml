@@ -5,6 +5,7 @@ resources:
   - ./ai
   - ./cert-manager
   - ./default
+  - ./external-services
   - ./flux-system
   - ./kube-system
   - ./monitoring
