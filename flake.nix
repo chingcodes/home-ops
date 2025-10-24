@@ -49,6 +49,7 @@
 
         export KUBECONFIG=$(pwd)/kubeconfig
         export TALOSCONFIG=$(pwd)/talos/clusterconfig/talosconfig
+        export SOPS_AGE_KEY_FILE=$(pwd)/age.key
       '';
     };
   };
