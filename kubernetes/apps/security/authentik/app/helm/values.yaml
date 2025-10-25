@@ -584,11 +584,11 @@ server:
     enabled: true
     # -- additional ingress annotations
     annotations:
-      external-dns.alpha.kubernetes.io/target: "auth.${SECRET_DOMAIN}"
+      external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
     # -- additional ingress labels
     labels: {}
     # -- defines which ingress controller will implement the resource
-    ingressClassName: "internal"
+    ingressClassName: "external"
     # -- List of ingress hosts
     hosts:
       - "auth.${SECRET_DOMAIN}"
