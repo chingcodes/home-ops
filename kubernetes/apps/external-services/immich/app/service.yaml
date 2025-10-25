@@ -4,23 +4,10 @@ kind: Service
 metadata:
   name: immich
 spec:
+  clusterIP: None
   ports:
     - name: http
       protocol: TCP
-      port: 80
-      targetPort: "${EXTERNAL_PORT}"
----
-apiVersion: discovery.k8s.io/v1
-kind: EndpointSlice
-metadata:
-  name: immich
-  labels:
-    kubernetes.io/service-name: immich
-addressType: IPv4
-ports:
-  - name: http
-    protocol: TCP
-    port: "${EXTERNAL_PORT}"
-endpoints:
-  - addresses:
-      - "${EXTERNAL_HOST}"
+      port: "${EXTERNAL_PORT}"
+  externalIPs:
+    - "${EXTERNAL_HOST}"
