@@ -3,10 +3,10 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: immich
+  annotations:
+    external-dns.alpha.kubernetes.io/exclude: "true"
 spec:
   ingressClassName: "external"
-  annotations:
-    external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
   rules:
     - host: "photos.${SECRET_DOMAIN}"
       http:
