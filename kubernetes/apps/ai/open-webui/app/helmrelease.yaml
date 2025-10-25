@@ -63,9 +63,9 @@ spec:
     ingress:
       app:
         enabled: true
-        className: internal
+        className: external
         annotations:
-          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
         hosts:
           - host: "openwebui.${SECRET_DOMAIN}"
             paths:
