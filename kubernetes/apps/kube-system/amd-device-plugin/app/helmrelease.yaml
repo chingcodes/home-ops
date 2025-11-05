@@ -62,3 +62,8 @@ spec:
         hostPath: /sys
         globalMounts:
           - path: /sys
+      dev-dri:
+        type: hostPath
+        hostPath: /dev/dri
+        globalMounts:
+          - path: /dev/dri
