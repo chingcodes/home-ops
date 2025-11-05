@@ -24,6 +24,9 @@ grafana:
           - "grafana.${SECRET_DOMAIN}"
   envFromSecret: "grafana-env-sops"
   grafana.ini:
+    server:
+        # The full public facing url you use in browser, used for redirects and emails
+        root_url: "https://grafana.${SECRET_DOMAIN}"
     auth:
         signout_redirect_url: "https://${AUTH_SERVICE}/application/o/grafana/end-session/"
         oauth_auto_login: true
