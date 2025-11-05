@@ -5,3 +5,5 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./open-webui-env.sops.yaml
+  - ./postgres-cluster.yaml
+  - ./postgres-secret.sops.yaml

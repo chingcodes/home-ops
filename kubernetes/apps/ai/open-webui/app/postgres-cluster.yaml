@@ -1,0 +1,60 @@
+---
+# PostgreSQL Cluster for Open-WebUI
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: open-webui-postgres
+  namespace: ai
+spec:
+  # Single instance for now, can be scaled to 3 for HA
+  instances: 1
+
+  # PostgreSQL version
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.6
+
+  # Storage configuration using OpenEBS
+  storage:
+    storageClass: openebs-hostpath
+    size: 5Gi
+
+  # PostgreSQL configuration optimized for web application
+  postgresql:
+    parameters:
+      max_connections: "200"
+      shared_buffers: "512MB"
+      effective_cache_size: "2GB"
+      maintenance_work_mem: "128MB"
+      checkpoint_completion_target: "0.9"
+      wal_buffers: "16MB"
+      default_statistics_target: "100"
+      random_page_cost: "1.1"
+      effective_io_concurrency: "200"
+      work_mem: "2621kB"
+      min_wal_size: "1GB"
+      max_wal_size: "4GB"
+
+  # Bootstrap configuration
+  bootstrap:
+    initdb:
+      database: openwebui
+      owner: openwebui
+      secret:
+        name: open-webui-postgres-app
+
+  # Monitoring configuration
+  monitoring:
+    enablePodMonitor: true
+
+  # Resource limits
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "250m"
+    limits:
+      memory: "2Gi"
+      cpu: "2000m"
+
+  # Maintenance window
+  nodeMaintenanceWindow:
+    inProgress: false
+    reusePVC: true

@@ -44,6 +44,19 @@ spec:
               OPENID_PROVIDER_URL: "https://auth.${SECRET_DOMAIN}/application/o/openwebui/.well-known/openid-configuration"
               OAUTH_SCOPES: "openid email profile"
               OPENID_REDIRECT_URI: "https://openwebui.${SECRET_DOMAIN}/oauth/oidc/callback"
+
+              # PostgreSQL
+              DATABASE_URL: "postgresql://open-webui-postgres-rw:5432/openwebui"
+              DATABASE_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: open-webui-postgres-app
+                    key: username
+              DATABASE_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: open-webui-postgres-app
+                    key: password
             envFrom:
               - secretRef:
                   name: open-webui-env-sops
