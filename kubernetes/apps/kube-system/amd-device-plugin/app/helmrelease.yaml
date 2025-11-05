@@ -24,7 +24,7 @@ spec:
           app:
             image:
               repository: rocm/k8s-device-plugin
-              tag: labeller-latest
+              tag: latest
             workingDir: /root
             command: ["./k8s-device-plugin"]
             args:
