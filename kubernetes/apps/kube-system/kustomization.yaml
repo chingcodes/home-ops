@@ -8,6 +8,7 @@ components:
   - ../../components/repos/app-template
 resources:
   - ./amd-device-plugin/ks.yaml
+  - ./amdgpu-labeller/ks.yaml
   - ./cilium/ks.yaml
   - ./coredns/ks.yaml
   - ./metrics-server/ks.yaml
