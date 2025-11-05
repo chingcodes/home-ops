@@ -25,6 +25,15 @@ spec:
             image:
               repository: rocm/k8s-device-plugin
               tag: labeller-latest
+            workingDir: /root
+            command: ["./k8s-device-plugin"]
+            args:
+              - "-logtostderr=true"
+              - "-stderrthreshold=INFO"
+              - "-v=5"
+            env:
+              - name: ROCM_VERSION
+                value: "6.0"
             securityContext:
               allowPrivilegeEscalation: false
               capabilities:
