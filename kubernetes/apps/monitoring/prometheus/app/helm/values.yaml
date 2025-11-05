@@ -22,6 +22,22 @@ grafana:
     tls:
       - hosts:
           - "grafana.${SECRET_DOMAIN}"
+  envFromSecret: "grafana-env-sops"
+  grafana.ini:
+    auth:
+        signout_redirect_url: "https://${AUTH_SERVICE}/application/o/grafana/end-session/"
+        oauth_auto_login: true
+    auth.generic_oauth:
+        name: authentik
+        enabled: true
+        client_id: '$__env{OAUTH_CLIENT_ID}'
+        client_secret: '$__env{OAUTH_CLIENT_SECRET}'
+        scopes: "openid profile email"
+        auth_url: "https://${AUTH_SERVICE}/application/o/authorize/"
+        token_url: "https://${AUTH_SERVICE}/application/o/token/"
+        api_url: "https://${AUTH_SERVICE}/application/o/userinfo/"
+        # Optionally map user groups to Grafana roles
+        role_attribute_path: contains(groups, 'Grafana Admins') && 'Admin' || contains(groups, 'Grafana Editors') && 'Editor' || 'Viewer'
 prometheus:
   interval: 60s
   ingress:
