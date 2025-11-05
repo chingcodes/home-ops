@@ -45,6 +45,9 @@ spec:
               OAUTH_SCOPES: "openid email profile"
               OPENID_REDIRECT_URI: "https://openwebui.${SECRET_DOMAIN}/oauth/oidc/callback"
 
+              # Ollama configuration
+              OLLAMA_BASE_URL: "http://ollama.ai.svc.cluster.local:11434"
+
               # PostgreSQL
               DATABASE_TYPE: postgresql
               DATABASE_HOST: open-webui-postgres-rw
