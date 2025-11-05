@@ -37,7 +37,6 @@ spec:
                 "-simd-count",
                 "-device-id",
                 "-family",
-                "-product-name"
               ]
             env:
               - name: DS_NODE_NAME
