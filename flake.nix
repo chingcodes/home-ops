@@ -12,6 +12,9 @@
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs { inherit system; };
+
+    # Import custom packages
+    kubectl-cnpg = pkgs.callPackage ./nix/kubectl-cnpg.nix { };
   in {
     devShells.${system}.default = pkgs.mkShell {
       packages = with pkgs; [
@@ -38,6 +41,9 @@
 
         # Add the telhelper package from the talhelper flake.
         talhelper.packages.${system}.default
+      ] ++ [
+        # Custom packages
+        kubectl-cnpg
       ];
 
       shellHook = ''
