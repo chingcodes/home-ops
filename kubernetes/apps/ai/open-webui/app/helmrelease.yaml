@@ -46,7 +46,10 @@ spec:
               OPENID_REDIRECT_URI: "https://openwebui.${SECRET_DOMAIN}/oauth/oidc/callback"
 
               # PostgreSQL
-              DATABASE_URL: "postgresql://open-webui-postgres-rw:5432/openwebui"
+              DATABASE_TYPE: postgresql
+              DATABASE_HOST: open-webui-postgres-rw
+              DATABASE_PORT: 5432
+              DATABASE_NAME: openwebui
               DATABASE_USER:
                 valueFrom:
                   secretKeyRef:
