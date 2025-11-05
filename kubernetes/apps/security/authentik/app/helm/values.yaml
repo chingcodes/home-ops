@@ -591,7 +591,7 @@ server:
     ingressClassName: "external"
     # -- List of ingress hosts
     hosts:
-      - "auth.${SECRET_DOMAIN}"
+      - "${AUTH_SERVICE}"
       # - authentik.domain.tld
 
     # -- List of ingress paths
