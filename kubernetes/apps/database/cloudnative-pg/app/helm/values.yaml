@@ -1,0 +1,50 @@
+---
+# CloudNativePG Operator Configuration
+
+# Monitoring configuration
+monitoring:
+  # Enable monitoring with Prometheus
+  enabled: true
+  # Create PodMonitor for operator metrics
+  podMonitorEnabled: true
+  # Create ServiceMonitor for Grafana Operator integration
+  grafanaDashboard:
+    create: true
+
+# Resource limits for the operator
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+# Webhook configuration
+webhook:
+  # Enable mutating webhook for automatic configuration
+  mutating:
+    create: true
+  # Enable validating webhook for resource validation
+  validating:
+    create: true
+  # Webhook service configuration
+  service:
+    type: ClusterIP
+
+# Controller configuration
+config:
+  # Enable instance manager
+  ENABLE_INSTANCE_MANAGER: "true"
+  # Inherit environment from the operator pod
+  INHERITED_ANNOTATIONS: "*.example.com/*"
+  # Inherited labels
+  INHERITED_LABELS: "*.example.com/*"
+  # Watch namespace (empty = all namespaces)
+  WATCH_NAMESPACE: ""
+
+# Logging level (info, debug, trace)
+logLevel: "info"
+
+# Additional arguments for the operator
+additionalArgs: []
