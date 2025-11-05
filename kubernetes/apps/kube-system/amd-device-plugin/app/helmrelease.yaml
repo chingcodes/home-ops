@@ -35,6 +35,9 @@ spec:
                 memory: 10Mi
               limits:
                 memory: 100Mi
+    serviceAccount:
+      create: true
+      name: amd-device-plugin
     defaultPodOptions:
       priorityClassName: system-node-critical
       nodeSelector:
