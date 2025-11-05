@@ -25,14 +25,6 @@ spec:
             image:
               repository: rocm/k8s-device-plugin
               tag: labeller-latest
-            command: ["/k8s-device-plugin"]
-            args:
-              - "-logtostderr=true"
-              - "-stderrthreshold=INFO"
-              - "-v=5"
-            env:
-              - name: ROCM_VERSION
-                value: "6.0"
             securityContext:
               allowPrivilegeEscalation: false
               capabilities:
@@ -40,7 +32,7 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 50Mi
+                memory: 10Mi
               limits:
                 memory: 100Mi
     defaultPodOptions:
@@ -67,10 +59,3 @@ spec:
         hostPath: /sys
         globalMounts:
           - path: /sys
-            readOnly: true
-      dev:
-        type: hostPath
-        hostPath: /dev
-        globalMounts:
-          - path: /dev
-            readOnly: true
