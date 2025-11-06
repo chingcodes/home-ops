@@ -22,14 +22,12 @@ spec:
         containers:
           app:
             image:
-              repository: rocm/vllm-dev
-              tag: nightly
+              repository: rocm/vllm
+              tag: rocm7.0.0_vllm_0.11.1_20251103
             command:
-              - python3
-              - -m
-              - vllm.entrypoints.openai.api_server
+              - vllm
+              - serve
             args:
-              - --model
               - "Qwen/Qwen2-1.5B-Instruct"
               - --host
               - "0.0.0.0"
@@ -39,6 +37,7 @@ spec:
               - "1"
               - --gpu-memory-utilization
               - "0.7"
+              - --enforce-eager
             env:
               # ROCm-specific environment variables
               HSA_OVERRIDE_GFX_VERSION: "11.0.0"
@@ -46,6 +45,8 @@ spec:
               GPU_MAX_HW_QUEUES: "2"
               # vLLM configuration
               VLLM_WORKER_MULTIPROC_METHOD: "spawn"
+              # Force V0 engine (V1 hangs on ROCm)
+              VLLM_USE_V1: "0"
             resources:
               requests:
                 cpu: 2000m
