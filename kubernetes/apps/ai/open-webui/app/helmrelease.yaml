@@ -49,7 +49,7 @@ spec:
               OLLAMA_BASE_URL: "http://ollama.ai.svc.cluster.local:11434"
 
               # OpenAI-compatible API
-              OPENAI_API_BASE_URLS: "https://api.openai.com/v1;http://vllm.ai.svc.cluster.local:8000/v1"
+              OPENAI_API_BASE_URLS: "https://api.openai.com/v1;http://vllm.ai.svc.cluster.local:8000/v1;http://llama-cpp.ai.svc.cluster.local:8080/v1"
 
               # PostgreSQL
               DATABASE_TYPE: postgresql
