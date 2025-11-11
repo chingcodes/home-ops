@@ -1,0 +1,40 @@
+---
+apiVersion: dragonflydb.io/v1alpha1
+kind: Dragonfly
+metadata:
+  name: dragonfly-cache
+  namespace: dragonfly
+spec:
+  replicas: 1
+
+  image: docker.io/dragonflydb/dragonfly:v1.23.1
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+  # Authentication
+  authentication:
+    passwordFromSecret:
+      name: dragonfly-cache-secret
+      key: password
+
+  # Snapshot to persistent volume
+  snapshot:
+    dir: /data
+    persistentVolumeClaimSpec:
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: openebs-hostpath
+      resources:
+        requests:
+          storage: 5Gi
+
+  # Enable Prometheus metrics and multi-threading
+  env:
+    - name: DFLY_proactor_threads
+      value: "2"

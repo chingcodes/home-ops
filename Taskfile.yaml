@@ -32,3 +32,120 @@ tasks:
     preconditions:
       - test -f {{.KUBECONFIG}}
       - which flux
+
+  dragonfly:
+    cmds:
+      - task: dragonfly:list
+
+  dragonfly:list:
+    desc: List all Dragonfly instances
+    cmd: kubectl get dragonfly -A
+    preconditions:
+      - test -f {{.KUBECONFIG}}
+
+  dragonfly:create:
+    desc: Create a new Dragonfly instance
+    vars:
+      NAME: '{{.NAME}}'
+      NAMESPACE: '{{default "dragonfly" .NAMESPACE}}'
+      REPLICAS: '{{default "1" .REPLICAS}}'
+    cmds:
+      - |
+        cat <<EOF | kubectl apply -f -
+        apiVersion: dragonflydb.io/v1alpha1
+        kind: Dragonfly
+        metadata:
+          name: {{.NAME}}
+          namespace: {{.NAMESPACE}}
+        spec:
+          replicas: {{.REPLICAS}}
+          image: docker.io/dragonflydb/dragonfly:v1.23.1
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          snapshot:
+            dir: /data
+            persistentVolumeClaimSpec:
+              accessModes: [ReadWriteOnce]
+              storageClassName: openebs-hostpath
+              resources:
+                requests:
+                  storage: 5Gi
+          env:
+            - name: DFLY_proactor_threads
+              value: "2"
+        EOF
+    preconditions:
+      - test -f {{.KUBECONFIG}}
+      - sh: '[ -n "{{.NAME}}" ]'
+        msg: "NAME is required. Usage: task dragonfly:create NAME=my-dragonfly"
+
+  dragonfly:delete:
+    desc: Delete a Dragonfly instance
+    vars:
+      NAME: '{{.NAME}}'
+      NAMESPACE: '{{default "dragonfly" .NAMESPACE}}'
+    cmd: kubectl delete dragonfly {{.NAME}} -n {{.NAMESPACE}}
+    preconditions:
+      - test -f {{.KUBECONFIG}}
+      - sh: '[ -n "{{.NAME}}" ]'
+        msg: "NAME is required. Usage: task dragonfly:delete NAME=my-dragonfly"
+
+  dragonfly:connect:
+    desc: Connect to Dragonfly instance with redis-cli
+    vars:
+      NAME: '{{.NAME}}'
+      NAMESPACE: '{{default "dragonfly" .NAMESPACE}}'
+    cmd: kubectl run -it --rm redis-cli --image=redis:alpine --restart=Never -- redis-cli -h {{.NAME}}.{{.NAMESPACE}}.svc.cluster.local
+    preconditions:
+      - test -f {{.KUBECONFIG}}
+      - sh: '[ -n "{{.NAME}}" ]'
+        msg: "NAME is required. Usage: task dragonfly:connect NAME=dragonfly-cache"
+
+  dragonfly:logs:
+    desc: View Dragonfly instance logs
+    vars:
+      NAME: '{{.NAME}}'
+      NAMESPACE: '{{default "dragonfly" .NAMESPACE}}'
+    cmd: kubectl logs -n {{.NAMESPACE}} -l app.kubernetes.io/name={{.NAME}} -f
+    preconditions:
+      - test -f {{.KUBECONFIG}}
+      - sh: '[ -n "{{.NAME}}" ]'
+        msg: "NAME is required. Usage: task dragonfly:logs NAME=dragonfly-cache"
+
+  dragonfly:get-password:
+    desc: Get Dragonfly instance password
+    vars:
+      NAME: '{{.NAME}}'
+      NAMESPACE: '{{default "dragonfly" .NAMESPACE}}'
+    cmd: kubectl get secret {{.NAME}}-secret -n {{.NAMESPACE}} -o jsonpath='{.data.password}' | base64 -d && echo
+    preconditions:
+      - test -f {{.KUBECONFIG}}
+      - sh: '[ -n "{{.NAME}}" ]'
+        msg: "NAME is required. Usage: task dragonfly:get-password NAME=dragonfly-cache"
+
+  dragonfly:info:
+    desc: Get Dragonfly instance info (redis INFO command)
+    vars:
+      NAME: '{{.NAME}}'
+      NAMESPACE: '{{default "dragonfly" .NAMESPACE}}'
+    cmd: kubectl exec -n {{.NAMESPACE}} -it statefulset/{{.NAME}} -- redis-cli INFO
+    preconditions:
+      - test -f {{.KUBECONFIG}}
+      - sh: '[ -n "{{.NAME}}" ]'
+        msg: "NAME is required. Usage: task dragonfly:info NAME=dragonfly-cache"
+
+  dragonfly:benchmark:
+    desc: Run redis-benchmark against Dragonfly instance
+    vars:
+      NAME: '{{.NAME}}'
+      NAMESPACE: '{{default "dragonfly" .NAMESPACE}}'
+    cmd: kubectl run -it --rm redis-benchmark --image=redis:alpine --restart=Never -- redis-benchmark -h {{.NAME}}.{{.NAMESPACE}}.svc.cluster.local -t set,get -n 100000 -q
+    preconditions:
+      - test -f {{.KUBECONFIG}}
+      - sh: '[ -n "{{.NAME}}" ]'
+        msg: "NAME is required. Usage: task dragonfly:benchmark NAME=dragonfly-cache"
