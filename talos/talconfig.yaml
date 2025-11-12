@@ -50,7 +50,7 @@ nodes:
     patches:
       - "@./patches/openebs/local-hostpath.yaml"
     extraManifests:
-      - "@./manifests/nut-client.yaml"
+      - "@./manifests/nut-client-node-01.yaml"
       - "@./manifests/miniforums-node.yaml"
   - hostname: "talos-mf-02"
     ipAddress: "10.0.38.22"
@@ -83,7 +83,7 @@ nodes:
     patches:
       - "@./patches/openebs/local-hostpath.yaml"
     extraManifests:
-      - "@./manifests/nut-client.yaml"
+      - "@./manifests/nut-client-node-02.yaml"
       - "@./manifests/miniforums-node.yaml"
   - hostname: "talos-mf-03"
     ipAddress: "10.0.38.23"
@@ -116,7 +116,7 @@ nodes:
     patches:
       - "@./patches/openebs/local-hostpath.yaml"
     extraManifests:
-      - "@./manifests/nut-client.yaml"
+      - "@./manifests/nut-client-node-03.yaml"
       - "@./manifests/miniforums-node.yaml"
 
 # Global patches

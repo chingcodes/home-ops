@@ -1,0 +1,33 @@
+---
+apiVersion: v1alpha1
+kind: ExtensionServiceConfig
+name: nut-client
+configFiles:
+  - content: |-
+        MONITOR cyberpower-1@10.0.38.12 1 observer panic_at_the_disco secondary
+        SHUTDOWNCMD "/sbin/poweroff"
+
+        NOTIFYMSG ONLINE    "UPS %s on line power"
+        NOTIFYMSG ONBATT    "UPS %s on battery"
+        NOTIFYMSG LOWBATT   "UPS %s battery is low"
+        NOTIFYMSG FSD       "UPS %s: forced shutdown in progress"
+        NOTIFYMSG COMMOK    "Communications with UPS %s established"
+        NOTIFYMSG COMMBAD   "Communications with UPS %s lost"
+        NOTIFYMSG SHUTDOWN  "Auto logout and shutdown proceeding"
+        NOTIFYMSG REPLBATT  "UPS %s battery needs to be replaced"
+        NOTIFYMSG NOCOMM    "UPS %s is unavailable"
+        NOTIFYMSG NOPARENT  "upsmon parent process died - shutdown impossible"
+
+        NOTIFYFLAG ONLINE   SYSLOG+WALL+EXEC
+        NOTIFYFLAG ONBATT   SYSLOG+WALL+EXEC
+        NOTIFYFLAG LOWBATT  SYSLOG+WALL
+        NOTIFYFLAG FSD      SYSLOG+WALL+EXEC
+        NOTIFYFLAG COMMOK   SYSLOG+WALL+EXEC
+        NOTIFYFLAG COMMBAD  SYSLOG+WALL+EXEC
+        NOTIFYFLAG SHUTDOWN SYSLOG+WALL+EXEC
+        NOTIFYFLAG REPLBATT SYSLOG+WALL
+        NOTIFYFLAG NOCOMM   SYSLOG+WALL+EXEC
+        NOTIFYFLAG NOPARENT SYSLOG+WALL
+
+        FINALDELAY 120
+    mountPath: /usr/local/etc/nut/upsmon.conf
