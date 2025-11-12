@@ -33,6 +33,7 @@ nodes:
             officialExtensions:
                 - siderolabs/amd-ucode
                 - siderolabs/amdgpu
+                - siderolabs/nut-client
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -49,6 +50,7 @@ nodes:
     patches:
       - "@./patches/openebs/local-hostpath.yaml"
     extraManifests:
+      - "@./manifests/nut-client.yaml"
       - "@./manifests/miniforums-node.yaml"
   - hostname: "talos-mf-02"
     ipAddress: "10.0.38.22"
@@ -64,6 +66,7 @@ nodes:
             officialExtensions:
                 - siderolabs/amd-ucode
                 - siderolabs/amdgpu
+                - siderolabs/nut-client
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -80,6 +83,7 @@ nodes:
     patches:
       - "@./patches/openebs/local-hostpath.yaml"
     extraManifests:
+      - "@./manifests/nut-client.yaml"
       - "@./manifests/miniforums-node.yaml"
   - hostname: "talos-mf-03"
     ipAddress: "10.0.38.23"
@@ -95,6 +99,7 @@ nodes:
             officialExtensions:
                 - siderolabs/amd-ucode
                 - siderolabs/amdgpu
+                - siderolabs/nut-client
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -111,6 +116,7 @@ nodes:
     patches:
       - "@./patches/openebs/local-hostpath.yaml"
     extraManifests:
+      - "@./manifests/nut-client.yaml"
       - "@./manifests/miniforums-node.yaml"
 
 # Global patches
