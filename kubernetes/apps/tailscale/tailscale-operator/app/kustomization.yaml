@@ -5,4 +5,5 @@ kind: Kustomization
 namespace: tailscale
 resources:
   - ./helmrelease.yaml
+  - ./rbac.yaml
   - ./secret.sops.yaml
