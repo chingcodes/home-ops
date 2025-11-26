@@ -9,3 +9,4 @@ resources:
   - ./ingress-nginx.yaml
   - ./openebs.yaml
   - ./prometheus-community.yaml
+  - ./tailscale.yaml

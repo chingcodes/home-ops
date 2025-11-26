@@ -13,3 +13,4 @@ resources:
   - ./network
   - ./security
   - ./storage
+  - ./tailscale
