@@ -6,6 +6,7 @@ resources:
   - ./cert-manager
   - ./database
   - ./default
+  - ./dragonfly
   - ./external-services
   - ./flux-system
   - ./kube-system

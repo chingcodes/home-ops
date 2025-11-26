@@ -1,0 +1,49 @@
+---
+apiVersion: dragonflydb.io/v1alpha1
+kind: Dragonfly
+metadata:
+  name: dragonfly-ha
+  namespace: dragonfly
+spec:
+  replicas: 3
+
+  resources:
+    requests:
+      cpu: 200m
+      memory: 512Mi
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+
+  # Authentication
+  authentication:
+    passwordFromSecret:
+      name: dragonfly-ha-secret
+      key: password
+
+  # Snapshot to persistent volume
+  snapshot:
+    dir: /data
+    persistentVolumeClaimSpec:
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: openebs-hostpath
+      resources:
+        requests:
+          storage: 10Gi
+
+  # Multi-threaded for better performance
+  env:
+    - name: DFLY_proactor_threads
+      value: "4"
+
+  # Affinity to spread across nodes
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: dragonfly-ha
+            topologyKey: kubernetes.io/hostname
