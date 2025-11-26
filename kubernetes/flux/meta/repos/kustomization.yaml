@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./authentik.yaml
   - ./cloudnative-pg.yaml
+  - ./dragonfly-operator.yaml
   - ./external-dns.yaml
   - ./ingress-nginx.yaml
   - ./openebs.yaml
