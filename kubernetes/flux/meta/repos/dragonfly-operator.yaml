@@ -10,4 +10,4 @@ spec:
   url: oci://ghcr.io/dragonflydb/dragonfly-operator/helm/dragonfly-operator
   ref:
     # renovate: datasource=github-releases depName=dragonflydb/dragonfly-operator
-    tag: v1.3.1
+    tag: v1.4.0
