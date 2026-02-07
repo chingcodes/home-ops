@@ -23,7 +23,7 @@ spec:
           app:
             image:
               repository: ollama/ollama
-              tag: 0.12.9-rocm
+              tag: 0.15.6-rocm
             env:
               OLLAMA_HOST: "0.0.0.0:11434"
               OLLAMA_ORIGINS: "*"
